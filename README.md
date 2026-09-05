@@ -1,75 +1,117 @@
-# React + TypeScript + Vite
+# MeddiBuddy 💊
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+MeddiBuddy is a medicine search application built with **React, Redux Toolkit, and Tailwind CSS**. Users can search for medicines, view search suggestions, and open a dedicated page containing detailed medicine information.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+* 🔍 Search medicines by name
+* 📋 Display medicine search results in a dropdown
+* 💊 View complete medicine details
+* 🔄 Navigate between medicine search and details pages
+* 🌐 Fetch medicine information from the FDA API
+* 🗂️ Use Redux Toolkit for global medicine state management
+* ⚠️ Error Boundaries for handling unexpected application errors
+* 📱 Responsive UI using Tailwind CSS
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+* **React** – UI development
+* **TypeScript** – Type safety
+* **Redux Toolkit** – Global state management
+* **React Router** – Client-side routing
+* **Tailwind CSS** – Styling
+* **Axios** – API requests
+* **Lucide React** – Icons
+* **Vite** – Development and build tool
 
-## Expanding the ESLint configuration
+## API
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Medicine information is fetched from the **OpenFDA Drug Label API**.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+Search endpoint:
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```text
+https://api.fda.gov/drug/label.json?search=openfda.brand_name:"SEARCH_INPUT"&limit=20
 ```
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+## Application Flow
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```text
+Search Medicine
+      ↓
+Medicine Results Dropdown
+      ↓
+Select Medicine
+      ↓
+Medicine Details Page
+      ↓
+View Complete Medicine Information
 ```
+
+## State Management
+
+Redux Toolkit is used to store medicine data in a global state.
+
+```text
+API
+ ↓
+createAsyncThunk
+ ↓
+Medicine Slice
+ ↓
+Redux Store
+ ↓
+React Components
+```
+
+This allows different components to access the medicine data without passing it through multiple levels of props.
+
+## Error Handling
+
+The application includes **React Error Boundaries** to prevent unexpected component errors from breaking the entire application and to provide a controlled error experience.
+
+## Installation
+
+Clone the repository and install the dependencies:
+
+```bash
+npm install
+```
+
+Start the development server:
+
+```bash
+npm run dev
+```
+
+Create a production build:
+
+```bash
+npm run build
+```
+
+## Project Structure
+
+```text
+src/
+├── components/
+├── pages/
+├── redux/
+│   ├── MedicineSlice.ts
+│   └── store.ts
+├── App.tsx
+├── main.tsx
+└── ...
+```
+
+## Future Improvements
+
+* Add medicine search debounce
+* Improve loading and error states
+* Add medicine search history
+* Add pagination or load-more functionality
+* Persist medicine data across page refreshes
+
+---
+
+**Built with React, Redux Toolkit, Tailwind CSS, and Vite.**
