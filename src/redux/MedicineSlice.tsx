@@ -68,15 +68,15 @@ const medicineSlice = createSlice({
                 state.medicines = action.payload;
 
             })
-        // .addCase(fetchMedicines.rejected, (state, action) => {
+            .addCase(fetchMedicines.rejected, (state, action) => {
 
-        //     state.loading = false;
-        //     state.medicines = [];
+                state.loading = false;
+                state.medicines = [];
 
-        //     state.error =
-        //         action.payload || "Failed to fetch medicines";
+                state.error =
+                    action.payload || "Failed to fetch medicines";
 
-        // });
+            });
 
     },
 });

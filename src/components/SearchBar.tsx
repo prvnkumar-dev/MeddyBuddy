@@ -9,11 +9,15 @@ import { fetchMedicines } from "../redux/MedicineSlice"
 const SearchBar = () => {
     const Navigate = useNavigate()
     const dispath = useDispatch()
-    const { medicines } = useSelector((state) => state.medicine)
+    const { medicines, loading, error } = useSelector((state) => state.medicine)
     const [searchValue, setSearchValue] = useState("")
     const searchMedicines = async (val: string) => {
         setSearchValue(val)
         dispath(fetchMedicines(val))
+        medicines?.localStorage.setItem(
+            "medicines",
+            JSON.stringify(medicines)
+        )
         // console.log(medicines)
         // medicines && setMedicineResult(medicines)
 
@@ -27,6 +31,15 @@ const SearchBar = () => {
                     <Search />
                 </div>
             </div>
+            {loading && (
+                <div>Loading...</div>
+            )}
+
+
+            {error && (
+                <div>{error}</div>
+            )}
+
             <div className="medicine-search-result absolute top-15 w-100">
                 {
                     medicines?.map((item, index) => (

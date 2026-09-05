@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react"
 import Card from "./Card"
 import axios from "axios"
-import { useParams } from "react-router"
+import { useNavigate, useParams } from "react-router"
 import { useSelector } from "react-redux"
 
 const MedicineDetails = () => {
+    const Navigate = useNavigate()
     const { id } = useParams()
     const [medicineData, setMedicineData] = useState({})
     const { medicines } = useSelector((state) => state.medicine)
@@ -34,7 +35,7 @@ const MedicineDetails = () => {
     }]
     useEffect(() => {
         getMedicineDetail()
-    }, [])
+    }, [medicines])
     return <>
         <section className="medicine-details-main flex justify-center items-center py-5 flex-col">
             <Card className="p-6 w-[900px] my-3">
@@ -49,7 +50,7 @@ const MedicineDetails = () => {
                 <div>At a glance</div>
                 <div className="h-[1px] w-full bg-gray-300 mt-3"></div>
                 {
-                    atglance.map((item) => (
+                    atglance?.map((item) => (
                         <div className="flex my-2 border-1 border-gray-300 p-3 border-s-0 border-e-0">
                             <div className="flex-grow">
                                 {item.title}
@@ -61,6 +62,7 @@ const MedicineDetails = () => {
                     ))
                 }
             </Card>
+            <button className="bg-green-400 shadow-sm px-6 py-3 my-3 rounded-lg" onClick={() => Navigate("/")}>Go back</button>
         </section>
     </>
 }
