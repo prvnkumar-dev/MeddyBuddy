@@ -6,7 +6,7 @@ interface Search {
 }
 const Card = ({ children, className }: Search) => {
     return <>
-        <div className={`border-1 border-gray-500 shadow-sm rounded-xl  ${className}`}>
+        <div className={`border-1 border-gray-300 shadow-sm rounded-xl  ${className}`}>
             {children}
         </div>
     </>
